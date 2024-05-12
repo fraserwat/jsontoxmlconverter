@@ -81,6 +81,7 @@ mod tests {
     use std::fs;
 
     fn testing_helper_fn(filename: &str) -> (String, String) {
+        // Function to load both test files (XML / JSON), convert the JSON and return a tuple of (XML, Test XML)
         let json_path = construct_file_path(&format!("src/data/{}.json", filename));
         let xml_path = construct_file_path(&format!("src/data/{}.xml", filename));
 
