@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<store>
+  <locations>
+    <item>
+      <address>123 Music Ave, Melody Town, NY, 54321</address>
+      <branch>Main Street</branch>
+      <genres>
+        <item>Rock</item>
+        <item>Jazz</item>
+        <item>Classical</item>
+        <item>Hip-Hop</item>
+        <item>Electronic</item>
+      </genres>
+      <hours>
+        <Mon-Fri>
+          <item>9:00 AM</item>
+          <item>8:00 PM</item>
+        </Mon-Fri>
+        <Sat>
+          <item>10:00 AM</item>
+          <item>6:00 PM</item>
+        </Sat>
+        <Sun>Closed</Sun>
+      </hours>
+    </item>
+    <item>
+      <address>456 Vinyl Blvd, Harmony City, CA, 98765</address>
+      <branch>Downtown</branch>
+      <genres>
+        <item>Blues</item>
+        <item>Country</item>
+        <item>Pop</item>
+        <item>Reggae</item>
+      </genres>
+      <hours>
+        <Mon-Wed>
+          <item>10:00 AM</item>
+          <item>7:00 PM</item>
+        </Mon-Wed>
+        <Sat>
+          <item>10:00 AM</item>
+          <item>5:00 PM</item>
+        </Sat>
+        <Sun>Closed</Sun>
+        <Thu-Fri>
+          <item>10:00 AM</item>
+          <item>9:00 PM</item>
+        </Thu-Fri>
+      </hours>
+    </item>
+  </locations>
+  <staff>
+    <item>
+      <branches>
+        <item>Main Street</item>
+        <item>Downtown</item>
+      </branches>
+      <name>Samantha Jones</name>
+      <role>Store Manager</role>
+      <schedule>
+        <Downtown>
+          <Fri>11:00 AM - 7:00 PM</Fri>
+          <Wed>10:00 AM - 6:00 PM</Wed>
+        </Downtown>
+        <Main Street>
+          <Mon>9:00 AM - 2:00 PM</Mon>
+          <Thu>9:00 AM - 5:00 PM</Thu>
+          <Tue>2:00 PM - 8:00 PM</Tue>
+        </Main Street>
+      </schedule>
+    </item>
+    <item>
+      <branches>
+        <item>Main Street</item>
+      </branches>
+      <name>Carlos Rodriguez</name>
+      <role>Sales Associate</role>
+      <schedule>
+        <Main Street>
+          <Fri>2:00 PM - 8:00 PM</Fri>
+          <Mon>9:00 AM - 5:00 PM</Mon>
+          <Wed>11:00 AM - 6:00 PM</Wed>
+        </Main Street>
+      </schedule>
+    </item>
+  </staff>
+  <store_name>Vinyl Haven</store_name>
+  <top_selling_albums>
+    <Classical>
+      <item>
+        <composer>Vivaldi</composer>
+        <sales>190</sales>
+        <title>The Four Seasons</title>
+      </item>
+    </Classical>
+    <Hip-Hop>
+      <item>
+        <artist>Nas</artist>
+        <formats>
+          <item>Vinyl</item>
+          <item>CD</item>
+          <item>Digital</item>
+        </formats>
+        <sales>400</sales>
+        <title>Illmatic</title>
+      </item>
+      <item>
+        <artist>Dr. Dre</artist>
+        <formats>
+          <item>Vinyl</item>
+          <item>Cassette</item>
+        </formats>
+        <sales>350</sales>
+        <title>The Chronic</title>
+      </item>
+    </Hip-Hop>
+    <Jazz>
+      <item>
+        <artist>Miles Davis</artist>
+        <sales>250</sales>
+        <title>Kind of Blue</title>
+      </item>
+      <item>
+        <artist>John Coltrane</artist>
+        <sales>150</sales>
+        <title>A Love Supreme</title>
+      </item>
+    </Jazz>
+    <Rock>
+      <item>
+        <artist>The Beatles</artist>
+        <sales>500</sales>
+        <title>Abbey Road</title>
+      </item>
+      <item>
+        <artist>Led Zeppelin</artist>
+        <sales>320</sales>
+        <title>Led Zeppelin IV</title>
+      </item>
+    </Rock>
+  </top_selling_albums>
+</store>

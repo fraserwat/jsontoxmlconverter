@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<store>
+  <genres>
+    <item>Rock</item>
+    <item>Jazz</item>
+    <item>Classical</item>
+    <item>Hip-Hop</item>
+  </genres>
+  <location>123 Music Ave, Melody Town</location>
+  <new arrivals>
+    <item>Abbey Road - The Beatles</item>
+    <item>Kind of Blue - Miles Davis</item>
+    <item>A Love Supreme - John Coltrane</item>
+  </new arrivals>
+  <store_name>Vinyl Haven</store_name>
+</store>
