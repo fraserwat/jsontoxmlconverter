@@ -19,8 +19,6 @@ pub fn load_xml(file_path: &str) -> ResultGnr<Reader> {
     }
 }
 
-// TODO: THis could be cleaned up by creating an XMLError enum type.
-
 fn check_xml_parse(parser: Reader) -> ResultGnr<String> {
     // xml-rs library only really checks if its able to be opened, no structural checks, so check for:
     // // 1. Naming conventions -- tag names cannot have spaces in xml.
@@ -28,6 +26,7 @@ fn check_xml_parse(parser: Reader) -> ResultGnr<String> {
     let mut tag_stack: VecDeque<String> = VecDeque::new();
     let mut reconstructed_xml = String::new();
 
+    // TODO: could be cleaned up by creating an XMLError enum type.
     for line in parser {
         match line {
             // Checking for 1. Naming conventions.
