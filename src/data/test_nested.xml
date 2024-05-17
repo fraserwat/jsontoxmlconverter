@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<store>
+  <genres>
+    <item>Rock</item>
+    <item>Jazz</item>
+    <item>Classical</item>
+    <item>Hip-Hop</item>
+    <item>Electronic</item>
+  </genres>
+  <location>
+    <city>Melody Town</city>
+    <postal_code>54321</postal_code>
+    <state>NY</state>
+    <street>123 Music Ave</street>
+  </location>
+  <staff>
+    <item>
+      <name>Samantha Jones</name>
+      <role>Store Manager</role>
+    </item>
+    <item>
+      <name>Carlos Rodriguez</name>
+      <role>Sales Associate</role>
+    </item>
+  </staff>
+  <store_name>Vinyl Haven</store_name>
+  <top_selling_albums>
+    <Classical>The Four Seasons - Vivaldi</Classical>
+    <Hip-Hop>Illmatic - Nas</Hip-Hop>
+    <Jazz>Kind of Blue - Miles Davis</Jazz>
+    <Rock>Abbey Road - The Beatles</Rock>
+  </top_selling_albums>
+</store>

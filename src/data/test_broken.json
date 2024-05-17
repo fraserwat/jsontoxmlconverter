@@ -1,0 +1,9 @@
+{
+    "store_name": "Vinyl Haven",
+    "location": "123 Music Ave, Melody Town",
+    "genres": ["Rock", "Jazz", "Classical", "Hip-Hop"],
+    "new_arrivals": [
+        "Abbey Road - The Beatles",
+        "Kind of Blue - Miles Davis",
+        "A Love Supreme - John Coltrane"
+}
