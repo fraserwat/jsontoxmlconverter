@@ -8,25 +8,24 @@ type Reader = EventReader<BufReader<File>>;
 type ResultGnr<T> = Result<T, Box<dyn Error>>;
 type XmlAttribute = [xml::attribute::OwnedAttribute];
 
-pub fn load_xml(file_path: &str) -> ResultGnr<String> {
+pub fn load_xml(file_path: &str) -> ResultGnr<Reader> {
     let file = File::open(file_path)?;
     let file_reader = BufReader::new(file);
     let xml_input = EventReader::new(file_reader);
-    let xml_output = check_xml_parse(xml_input)?;
-
-    Ok(xml_output)
+    match check_xml_parse(xml_input) {
+        // Previous file_reader consumed by Rust's ownership system, so just rerun & return the above:
+        Ok(_) => Ok(EventReader::new(BufReader::new(File::open(file_path)?))),
+        Err(error) => Err(error),
+    }
 }
 
 // TODO: THis could be cleaned up by creating an XMLError enum type.
 
 fn check_xml_parse(parser: Reader) -> ResultGnr<String> {
-    // the xml-rs library only really checks if it is able to be opened, no structural checks.
-    // Check for:
+    // xml-rs library only really checks if its able to be opened, no structural checks, so check for:
     // // 1. Naming conventions -- tag names cannot have spaces in xml.
     // // 2. Structural conventions -- any opened tag needs a closing tag, we'll use a stack for this.
     let mut tag_stack: VecDeque<String> = VecDeque::new();
-
-    // As Rust's ownership system consumes the file as its parsed, it will be recreated in a new string.
     let mut reconstructed_xml = String::new();
 
     for line in parser {
@@ -65,13 +64,13 @@ fn check_xml_parse(parser: Reader) -> ResultGnr<String> {
 fn xml_start_tag(output: &mut String, tag_name: &str, attributes: &XmlAttribute) -> ResultGnr<()> {
     output.push('<');
     output.push_str(tag_name);
-    for attr in attributes {
+    attributes.iter().for_each(|attr| {
         output.push(' ');
         output.push_str(&attr.name.local_name);
         output.push_str("=\"");
         output.push_str(&attr.value);
         output.push('"');
-    }
+    });
     output.push('>');
     Ok(())
 }
