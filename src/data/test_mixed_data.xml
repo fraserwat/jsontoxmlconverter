@@ -62,11 +62,11 @@
           <Fri>11:00 AM - 7:00 PM</Fri>
           <Wed>10:00 AM - 6:00 PM</Wed>
         </Downtown>
-        <Main Street>
+        <Main_Street>
           <Mon>9:00 AM - 2:00 PM</Mon>
           <Thu>9:00 AM - 5:00 PM</Thu>
           <Tue>2:00 PM - 8:00 PM</Tue>
-        </Main Street>
+        </Main_Street>
       </schedule>
     </item>
     <item>
@@ -76,11 +76,11 @@
       <name>Carlos Rodriguez</name>
       <role>Sales Associate</role>
       <schedule>
-        <Main Street>
+        <Main_Street>
           <Fri>2:00 PM - 8:00 PM</Fri>
           <Mon>9:00 AM - 5:00 PM</Mon>
           <Wed>11:00 AM - 6:00 PM</Wed>
-        </Main Street>
+        </Main_Street>
       </schedule>
     </item>
   </staff>

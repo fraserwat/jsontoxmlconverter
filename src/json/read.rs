@@ -29,25 +29,25 @@ mod tests {
     use crate::helper::path::construct_file_path;
 
     #[test]
-    fn test_read_broken_json() {
+    fn test_read_broken() {
         let file_path = construct_file_path("src/data/test_broken.json");
         assert!(load_json(&file_path).is_err());
     }
 
     #[test]
-    fn test_read_simple_json() {
+    fn test_read_simple() {
         let file_path = construct_file_path("src/data/test_simple.json");
         let result = load_json(&file_path);
         assert!(result.is_ok());
     }
     #[test]
-    fn test_read_nested_json() {
+    fn test_read_nested() {
         let file_path = construct_file_path("src/data/test_nested.json");
         let result = load_json(&file_path);
         assert!(result.is_ok());
     }
     #[test]
-    fn test_read_json_mixed_data_types() {
+    fn test_read_mixed_data() {
         let file_path = construct_file_path("src/data/test_mixed_data.json");
         let result = load_json(&file_path);
         assert!(result.is_ok());

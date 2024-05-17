@@ -28,17 +28,16 @@ pub fn convert_json_to_xml(json: Value, root_name: &str) -> ResultGeneric<String
     let xml_bytes = writer
         .into_inner() // Converts Writer back into Cursor
         .into_inner(); // Gets Vec<> object from Cursor
-    let xml_string = String::from_utf8(xml_bytes).expect("Should be valid UTF-8");
+    let xml_string = String::from_utf8(xml_bytes)?;
     Ok(xml_string)
 }
 
 fn json_to_xml(json: &Value, writer: &mut XmlCursor) -> ResultGeneric<()> {
     match json {
         Value::String(s) => writer.write(XmlEvent::characters(s)).map_err(|e| e.into()),
-        Value::Number(_) | Value::Bool(_) | Value::Null => xml_standard_type_handling(json, writer),
         Value::Array(a) => xml_array_handling(a, writer).map_err(|e| e.into()),
         Value::Object(map) => handle_json_object(map, writer).map_err(|e| e.into()),
-        _ => Err("Unsupported JSON value type".to_string()).map_err(|e| e.into()),
+        Value::Number(_) | Value::Bool(_) | Value::Null => xml_standard_type_handling(json, writer),
     }
 }
 
@@ -48,31 +47,32 @@ fn xml_standard_type_handling(json: &Value, writer: &mut XmlCursor) -> ResultGen
         // All other values reaching this will either be Number or Bool types.
         _ => json.to_string(),
     };
-    writer
-        .write(XmlEvent::characters(json_str.as_str()))
-        .unwrap();
+    writer.write(XmlEvent::characters(json_str.as_str()))?;
     Ok(())
 }
 
 fn xml_array_handling(arr: &[Value], writer: &mut XmlCursor) -> ResultGeneric<()> {
-    for item in arr {
-        writer.write(XmlEvent::start_element("item"))?;
-        json_to_xml(item, writer)?;
-        writer.write(XmlEvent::end_element())?;
-    }
+    arr.iter().for_each(|item| {
+        writer
+            .write(XmlEvent::start_element("item"))
+            .expect(&format!("Could not open XML element ({})", item));
+        json_to_xml(item, writer).expect(&format!("Error processing '{}' from JSON to XML", item));
+        writer
+            .write(XmlEvent::end_element())
+            .expect(&format!("Could not close XML element ({})", item));
+    });
+
     Ok(())
 }
 
 fn handle_json_object(map: &Map<String, Value>, writer: &mut XmlCursor) -> ResultGeneric<()> {
     for (key, value) in map {
-        writer.write(XmlEvent::start_element(key.as_str()))?;
+        writer.write(XmlEvent::start_element(key.replace(" ", "_").as_str()))?;
         json_to_xml(value, writer)?;
         writer.write(XmlEvent::end_element())?;
     }
     Ok(())
 }
-
-// TESTING BELOW HERE:::
 
 #[cfg(test)]
 mod tests {
@@ -80,33 +80,33 @@ mod tests {
     use crate::json::read;
     use std::fs;
 
-    fn testing_helper_fn(filename: &str) -> (String, String) {
+    fn testing_helper_fn(filename: &str) -> Result<(String, String), Box<dyn std::error::Error>> {
         // Function to load both test files (XML / JSON), convert the JSON and return a tuple of (XML, Test XML)
         let json_path = construct_file_path(&format!("src/data/{}.json", filename));
         let xml_path = construct_file_path(&format!("src/data/{}.xml", filename));
 
         // Read JSON and convert to XML
-        let json = read::load_json(&json_path).unwrap();
-        let xml = super::convert_json_to_xml(json, "store").unwrap();
+        let json = read::load_json(&json_path)?;
+        let xml = super::convert_json_to_xml(json, "store")?;
 
         // Compare to the test XML we have saved
-        let xml_test = fs::read_to_string(xml_path).expect("Failed to read Test XML.");
-        return (xml, xml_test);
+        let xml_test = fs::read_to_string(xml_path)?;
+        return Ok((xml, xml_test));
     }
 
     #[test]
-    fn test_trf_simple_xml() {
-        let (xml, xml_test) = testing_helper_fn("test_simple");
+    fn test_trf_simple() {
+        let (xml, xml_test) = testing_helper_fn("test_simple").unwrap();
         assert_eq!(xml, xml_test);
     }
     #[test]
-    fn test_trf_nested_xml() {
-        let (xml, xml_test) = testing_helper_fn("test_nested");
+    fn test_trf_nested() {
+        let (xml, xml_test) = testing_helper_fn("test_nested").unwrap();
         assert_eq!(xml, xml_test);
     }
     #[test]
-    fn test_trf_mixed_xml() {
-        let (xml, xml_test) = testing_helper_fn("test_mixed_data");
+    fn test_trf_mixed() {
+        let (xml, xml_test) = testing_helper_fn("test_mixed_data").unwrap();
         assert_eq!(xml, xml_test);
     }
 }
